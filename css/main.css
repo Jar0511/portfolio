@@ -1,0 +1,206 @@
+@charset "UTF-8";
+
+/*Default*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+/*fonts*/
+@font-face {
+    font-family: 'RixYeoljeongdo_Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/RixYeoljeongdo_Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'NanumBarunGothic';
+    font-style: normal;
+    font-weight: 400;
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'HangeulNuri-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/HangeulNuri-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.nuri {
+    font-family: 'HangeulNuri-Bold';
+}
+.rixyj {
+    font-family: 'RixYeoljeongdo_Regular', sans-serif;
+    font-weight: 400;
+}
+.nanumsquare {
+    font-family: 'NanumSquare', sans-serif !important;
+}
+
+body {
+    font-size: 1rem;
+    font-family: 'NanumBarunGothic', sans-serif;
+    color: #333;
+    line-height: 1.0;
+}
+#wrap {
+    width: 100%;
+}
+.inner {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/*header*/
+header {
+    height: 120px;
+    width: 1920px;
+    z-index: 9999;
+}
+header .inner {
+    position: relative;
+    height: 100%;
+}
+header h1 {
+    font-size: 2rem;
+    border: 8px solid #999;
+    display: inline-block;
+    width: 469px;
+    padding: 15px 0;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 40px;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+header p{
+    position: absolute;right: 0;
+    top: 80px;
+}
+
+/*container*/
+#container {
+    width: 1920px;
+    height: 916px;
+    position: relative;
+    background: url('../images/main.png') no-repeat center top;
+}
+#container .slider > li {
+    height: 916px;
+}
+#container .slider .desc {
+    width: 192px;
+    height: 305px;
+    text-align: center;
+    padding-top: 58px;
+    box-sizing: border-box;
+    position: absolute;
+    left: 1274px;
+    top: 360px;
+}
+#container .slider .desc h2 {
+    font-weight: 700;
+    font-size: 2rem;
+    color: #fff;
+    line-height: 1.3;
+}
+#container .slider .desc ul {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+#container .slider .desc ul li:nth-child(2) {
+    margin-left: 8px;
+}
+#container .slider .desc ul li a {
+    display: inline-block;
+    color: #fff;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    border-radius: 20px;
+}
+#container .slider .desc ul li:hover a {
+    background: #fff;
+    color: #000;
+}
+#container .slider .desc p {
+    padding-top: 40px;
+    line-height: 1.3;
+}
+
+.bx-wrapper .bx-pager {
+    position: absolute;
+    bottom: 250px;
+    left: 1330px;
+    z-index: 99;
+}
+.bx-wrapper .bx-pager .bx-pager-item,
+.bx-wrapper .bx-controls-auto .bx-controls-auto-item {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+}
+.bx-wrapper .bx-pager.bx-default-pager a {
+    background: #ccc;
+    text-indent: -9999px;
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    outline: 0;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+.bx-wrapper .bx-pager.bx-default-pager a:hover,
+.bx-wrapper .bx-pager.bx-default-pager a.active {
+    background: #000;
+}
+
+#container .slider .mv1 {
+    background: url('../images/mv01.jpg') no-repeat center top;
+}
+#container .slider .mv2 {
+    background: url('../images/mv02.jpg') no-repeat center top;
+}
+
+/*footer*/
+footer {
+    height: 64px;
+    width: 1920px;
+    background: #666;
+}
+footer .inner {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+footer p {
+    color: #fff;
+    font-size: 0.875rem;
+    opacity: 0.5;
+}

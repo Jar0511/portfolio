@@ -1,31 +1,5 @@
 @charset "UTF-8";
 
-/*Default*/
-* {
-    margin: 0;
-    padding: 0;
-}
-
-ul,
-ol {
-    list-style: none;
-}
-
-a {
-    text-decoration: none;
-    color: #333;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: 400;
-    font-size: 1rem;
-}
-
 /*fonts*/
 @font-face {
     font-family: 'RixYeoljeongdo_Regular';
@@ -96,9 +70,13 @@ header h1 {
     bottom: 0;
     left: 0;
 }
-header p{
+header ul{
+    display: flex;
     position: absolute;right: 0;
     top: 80px;
+}
+header ul li{
+    margin-left: 16px;
 }
 
 /*container*/
@@ -106,7 +84,7 @@ header p{
     width: 1920px;
     height: 916px;
     position: relative;
-    background: url('../images/main.png') no-repeat center top;
+    background: url('../images/main/main.png') no-repeat center top;
 }
 #container .slider > li {
     height: 916px;
@@ -118,8 +96,11 @@ header p{
     padding-top: 58px;
     box-sizing: border-box;
     position: absolute;
-    left: 1274px;
+    left: 1267px;
     top: 360px;
+}
+#container .slider >li.mv3 .desc h2 {
+    font-weight: 400;
 }
 #container .slider .desc h2 {
     font-weight: 700;
@@ -142,9 +123,17 @@ header p{
     border: 1px solid #fff;
     border-radius: 20px;
 }
-#container .slider .desc ul li:hover a {
+#container .slider >li.mv1 .desc ul li:hover a {
     background: #fff;
-    color: #000;
+    color: #da3232;
+}
+#container .slider >li.mv2 .desc ul li:hover a {
+    background: #fff;
+    color: #26b3e0;
+}
+#container .slider >li.mv3 .desc ul li:hover a {
+    background: #fff;
+    color: #d96c89;
 }
 #container .slider .desc p {
     padding-top: 40px;
@@ -154,7 +143,7 @@ header p{
 .bx-wrapper .bx-pager {
     position: absolute;
     bottom: 250px;
-    left: 1330px;
+    left: 1325px;
     z-index: 99;
 }
 .bx-wrapper .bx-pager .bx-pager-item,
@@ -181,10 +170,13 @@ header p{
 }
 
 #container .slider .mv1 {
-    background: url('../images/mv01.jpg') no-repeat center top;
+    background: url('../images/main/mv01.jpg') no-repeat center top;
 }
 #container .slider .mv2 {
-    background: url('../images/mv02.jpg') no-repeat center top;
+    background: url('../images/main/mv02.jpg') no-repeat center top;
+}
+#container .slider .mv3 {
+    background: url('../images/main/mv03.jpg') no-repeat center top;
 }
 
 /*footer*/

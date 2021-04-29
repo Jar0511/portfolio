@@ -1,0 +1,14 @@
+$(document).ready(function(){
+    $('#reference').hide();
+    $('.subpage_menu>ul>li').click(function(){
+        $(this).addClass('on');
+        $(this).siblings().removeClass('on');
+    });
+    $('.subpage_menu>ul>li.reference').click(function(){
+        event.preventDefault();
+        $('#reference').fadeIn();
+    });
+    $('.page>.close').click(function(){
+        $('#reference').fadeOut();
+    });
+});

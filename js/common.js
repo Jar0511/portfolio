@@ -1,9 +1,10 @@
 $(document).ready(function(){
     $('.slider').bxSlider({
         mode:'fade',
-        controls: false
+        controls: false,
+        touchEnabled: false
     });
-    $('.bx-wrapper a').click(function(){
-        return false;
+    $('.bx-pager.bx-default-pager>a').click(function(){
+        event.preventDefault();
     });
 });

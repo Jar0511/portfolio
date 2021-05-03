@@ -389,6 +389,20 @@ header .m_icon{display: none;}
 #info .map_bar1{position: absolute;top: -92px;width: 100%;}
 #info .map_bar1>li{display: inline-block;width: 160px;height: 72px;}
 #info .map_bar1>li>a{display: block;font-family: 'HangeulNuri-Bold',sans-serif;font-size: 1.125rem;padding: 32px 16px 33px 78px;box-sizing: border-box;background: url('../images/gunhangje/icon_bus.png') no-repeat 8px 8px #d96c89;border-radius: 20px 20px 0 0;}
+@media all and (min-width:768px) and (max-width:1024px){
+    #info .inner:before{left: -100%;}
+    #info .inner:after{right: -100%;}
+}
+@media all and (max-width:767px){
+    #info{background: url('');height: 100vh;}
+    #info h4:before{content: "";display: inline-block;width: 80px;height: 80px;position: absolute;background: url('../images/gunhangje/icon_gnb3_on.png') no-repeat center;top: -40%;left: 50%;transform: translate(-50%,0);}
+    #info .map{display: none;}
+    #info .inner{background: rgba(0,0,0,0);border: 0;width: 100%;height: 100vh;top: 180px}
+    #info .map_bar1{top: 0;left: 0;}
+    #info .map_bar1>li{width: calc(100% - 16px);height: calc((100% - 48px)/7);background: #d96c89 url('../images/gunhangje/icon_arrowdown_bl.png') no-repeat 90% 35px;margin-left: 8px}
+    #info .map_bar1>li>a{background: url('');font-size: 1.5rem;border-radius: 0;width: 100%;height: 100%;padding: 32px 16px 33px 16px;}
+}
+
 #info .bus_info{position: absolute;bottom: 0;padding: 32px 0 64px;background: #d96c89;height: 552px;box-sizing: border-box;width:100%;}
 #info .bus_info:before{content: "";display: block;background: #d96c89;height: 100%;width: 100%;position: absolute;left: -940px;bottom: 0}
 #info .bus_info:after{content: "";display: block;background: #d96c89;height: 100%;width: 100%;position: absolute;right: -940px;bottom: 0}
@@ -414,6 +428,7 @@ header .m_icon{display: none;}
 #info .shuttle>ul{width: 100%;position: absolute;padding: 0 11px;box-sizing: border-box;top: 92px;left: 0;}
 #info .shuttle>ul li{height: 104px;margin-bottom: 8px;}
 #info .shuttle>ul li table{border: 1px solid #000;width: 100%;height: 100%;}
+#info .shuttle>ul li table br.m_br{display: none;}
 #info .shuttle>ul li table td{border: 1px solid #000;}
 #info .shuttle>ul li table td.blue{background: #8fafd9;font-size: 1.125rem;text-align: center;}
 #info .shuttle>ul li table tr:nth-child(2) td{text-align: center;}
@@ -434,9 +449,43 @@ header .m_icon{display: none;}
 #info .shuttle>ul li:nth-child(3) table li.green{background: #00ff00;}
 #info .shuttle>ul li:nth-child(3) table tr:nth-child(2) td:nth-child(2) span{color: #00ff00;}
 #info .shuttle>ul li:nth-child(3) table tr:nth-child(2) td:nth-child(2) span{color: #00ff00;}
+@media all and (min-width:768px) and (max-width:1024px){
+    #info .bus_info:before{left: -100%;}
+    #info .bus_info:after{right: -100%;}
+    #info .bus_info ul>li p.tit{padding: 8px 16px;}
+    #info .navy .s_tit{white-space: nowrap;}
+    #info .navy .box1{padding: 0 24px;}
+    #info .navy .box2{padding: 25px 0 21px 24px;}
+    #info .navy .box3 p.desc{font-size: 0.875rem;padding: 16px 8px;width: 100%;box-sizing: border-box;}
+    #info .shuttle>ul li table{font-size: 0.85rem;}
+    #info .shuttle>ul li table br.w_br{display: none;}
+    #info .shuttle>ul li table br.m_br{display: block;}
+    #info .shuttle>ul li table td{line-height: 1.2;}
+    #info .shuttle>ul li table td.blue{font-size: 1rem;}
+}
+@media all and (max-width:767px){
+    #info .bus_info{height: 1500px;position: fixed;top: -320px;left: 0}
+    #info .bus_info:before{display: none;}
+    #info .bus_info:after{display: none;}
+    #info .bus_info>ul{flex-direction: column;height: 100%;}
+    #info .bus_info>ul>li{width: calc(100% - 16px);height: calc((100% - 16px)/3);margin-left: 8px}
+    #info .city form[name="citybus"]{left: 16px;transform: translateX(0);top: 120px;}
+    #info .city table{width: 48%;right: 32px;transform: translateX(0);top: 120px;}
+    #info .navy .box1{padding: 0 16px;}
+    #info .navy .box2{padding: 0;position: absolute;top: 0;right: 32px;}
+    #info .navy .box3{margin-top: 50px}
+    #info .navy .box3 p.desc{width: 80%;}
+    
+}
+
 #info .map_bar2{font-size: 1.25rem;color: #fff;font-family: 'HangeulNuri-Bold',sans-serif;display: flex;justify-content: space-between;height: 100%;align-items: center;}
-#info .map_bar2 li{width: calc(100%/6);cursor: pointer;}
+#info .map_bar2 li{width: calc(100%/6);cursor: pointer;text-align: center;}
 #info .map_bar2 li.on{color: #d96c89;}
+@media all and (max-width:767px){
+    #info .map_bar2{font-size: 1.5rem;color: #000;flex-direction: column;text-align: left;height: 600px;margin-top: calc((100% - 48px)/7 + 32px);width: 100%}
+    #info .map_bar2 li{width: 100%;text-align: left;padding: 32px 16px 0 16px;;height: calc((100% - 40px)/6);box-sizing: border-box;background: url('../images/gunhangje/icon_arrowdown_bl.png') no-repeat 90% 35px #eee;}
+}
+
 
 #gallery{background: #f2d8d8;display: flex;flex-direction: column;flex-wrap: wrap;position: relative;height: 56.25vw}
 #gallery .area img{width: 100%;}
@@ -460,6 +509,41 @@ header .m_icon{display: none;}
 #gallery .area_5 li{width: calc((100% - 24px)/4);}
 #gallery .area_5 li:nth-child(4){background: #8fafd9;}
 #gallery .area_6{margin-top: 8px;}
+@media all and (min-width:768px) and (max-width:1024px){
+    #gallery{height: 660px;}
+    #gallery .area{width: calc((100% - 24px)/2)}
+    #gallery .area_0{margin-top: 13.889vh;margin-left: 8px;order: 0;}
+    #gallery .area_1{order: 3;margin-left: 8px;}
+    #gallery .area_2{order: 1;margin-left: 8px;}
+    #gallery .area_2 li:nth-child(1){display: none;}
+    #gallery .area_3{order: 2;flex-direction: row-reverse;margin-left: 8px;}
+    #gallery .area_3 li:nth-child(2){font-size: 4.688vw;}
+    #gallery .area_4{order: 4;display: none;}
+    #gallery .area_5{order: 5;margin-left: calc(-25% + 8px);margin-top: 13.889vh;display: block; position: relative;width: 50%;height: 23.8vw}
+    #gallery .area_5 li:nth-child(1){position: absolute;top: 0;left: 0;}
+    #gallery .area_5 li:nth-child(2){position: absolute;bottom: 0;left: 0;}
+    #gallery .area_5 li:nth-child(3){position: absolute;left: 25%;top: 0;}
+    #gallery .area_5 li:nth-child(4){position: absolute;left: 25%;bottom: 0;}
+    #gallery .area_6{order: 6;display: none;}
+}
+@media all and (max-width:767px){
+    #gallery{height: 180vw;width: 100%;}
+    #gallery h4:before{content: "";display: inline-block;width: 80px;height: 80px;position: absolute;background: url('../images/gunhangje/icon_gnb4_on.png') no-repeat center;top: -40%;left: 50%;transform: translate(-50%,0);}
+    #gallery .area{width: calc((100% - 24px)/2)}
+    #gallery .area_0{margin-top: 10.417vw;margin-left: 8px;order: 0}
+    #gallery .area_1{display: none;order: 1}
+    #gallery .area_2{order: 3;margin-top: 55vw;margin-left: -50%}
+    #gallery .area_2 li:nth-child(2) a{font-size: 3.125vw}
+    #gallery .area_3{order: 2}
+    #gallery .area_3 li:nth-child(1){display: none;}
+    #gallery .area_3 li:nth-child(2){width: 100%;height: 31.298vw; font-size: 6vw;margin-left: 8px;padding-top: 40%;}
+    #gallery .area_4{order: 4;margin-left: -50%;margin-top: 8px;}
+    #gallery .area_5{order: 5;display: none;}
+    #gallery .area_6{order: 6;margin-left: -50%;}
+}
 
 /*footer*/
 footer{background: #000;color: #fff;padding: 67px 0;font-size: 0.75rem;text-align: center;}
+@media all and (max-width:767px){
+    footer{padding: 16px 0}
+}

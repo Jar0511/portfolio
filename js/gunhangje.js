@@ -110,6 +110,7 @@ $(document).ready(function(){
        var container=$("#info .bus_info");
         if(container.has(e.target).length===0)
             container.fadeOut();
+        $('#info .map_bar1>li>a').show();
     });
 //출처: https://poponyang.tistory.com/entry/jQuery-%EB%A0%88%EC%9D%B4%EC%96%B4-%EB%B0%94%EA%B9%A5-%ED%81%B4%EB%A6%AD%ED%95%A0-%EB%95%8C-%EB%A0%88%EC%9D%B4%EC%96%B4-%EC%82%AC%EB%9D%BC%EC%A7%80%EA%B2%8C-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95
     

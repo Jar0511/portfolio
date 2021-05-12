@@ -1,18 +1,5 @@
 @charset "UTF-8";
 
-/*reportapp*/
-#reportapp{
-    width: 100%;
-    overflow: hidden;
-    text-align: center;
-    
-}
-#reportapp img{
-    display: block;
-    width: 100%;
-    
-}
-
 /*common*/
 .subpage_menu{
     width: 100%;
@@ -91,6 +78,12 @@
     text-align: right;
     margin-top: 24px;
 }
+footer{
+    height: 72px;
+    text-align: center;
+    padding-top: 24px;
+    box-sizing: border-box;
+}
 
 /*liko_bibx*/
 #liko_bibx{
@@ -103,7 +96,49 @@
 #liko_web{
     width: 100%;
     overflow: hidden;
+    background: #dbe2e2;
 }
 #liko_web img{
     width: 100%;
+}
+
+/*reportapp*/
+#reportapp{
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    
+}
+#reportapp img{
+    display: block;
+    width: 100%;
+    
+}
+#reportapp footer{
+    color: #26b3e0;
+}
+
+/*gunhang*/
+#gunhang footer{
+    color: #d96c89;
+}
+#gunhang img{
+    display: block;
+    width: 100%;
+}
+
+/*blog*/
+#blog img{
+    display: block;
+    width: 100%;
+}
+#blog > .subpage_menu li a{
+    color: #999;
+}
+#blog > .subpage_menu li.on>a, #blog > .subpage_menu li a:hover{
+    color: #fff;
+}
+#blog footer{
+    background: #021526;
+    color: #fff;
 }

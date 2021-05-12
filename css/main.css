@@ -178,6 +178,9 @@ header ul li{
 #container .slider .mv3 {
     background: url('../images/main/mv03.jpg') no-repeat center top;
 }
+#container .slider .mv4 {
+    background: url('../images/main/mv04.jpg') no-repeat center top;
+}
 
 /*footer*/
 footer {

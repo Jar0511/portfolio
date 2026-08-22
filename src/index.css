@@ -42,19 +42,31 @@
   --app-background: #030303;
 }
 
-@theme {
+@theme inline {
   --color-background: var(--app-background);
   --font-space-mono:
     "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
 }
 
-.theme-mode-panel {
-  background: radial-gradient(
-    190% 44% at 50% 112%,
+.theme-mode-surface {
+  background-color: var(--app-background);
+  background-image: radial-gradient(
+    34rem 26rem at left bottom,
     #f9783d 0%,
     #ffa756 24%,
     #fbd3b0 43%,
-    var(--color-background) 78%
+    transparent 78%
+  );
+  background-repeat: no-repeat;
+}
+
+.dark .theme-mode-surface {
+  background-image: radial-gradient(
+    34rem 26rem at left bottom,
+    #e3e5fc 0%,
+    #6166dd 30%,
+    #3938a2 52%,
+    transparent 78%
   );
 }

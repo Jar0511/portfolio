@@ -2,14 +2,18 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState, type PropsWithChildren } from "react";
 import { IoMoonSharp } from "react-icons/io5";
 import { MdSunny } from "react-icons/md";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
+type StyledLinkProps =
+PropsWithChildren<{ to: string | { pathname?: string; search?: string; hash?: string }; hasChildren?: boolean }>
 const StyledLink = ({
   to,
   children,
-}: PropsWithChildren<{ to: string | { pathname?: string; search?: string; hash?: string } }>) => {
+  hasChildren
+}: StyledLinkProps) => {
+  const { pathname } = useLocation();
   return (
-    <Link to={to} className="block border-b border-neutral-300 dark:border-neutral-700 px-4 py-3">
+    <Link to={to} className={`block transition-colors duration-150 border-b border-neutral-300 dark:border-neutral-700 ${!hasChildren && to === pathname ? "font-semibold text-neutral-600 dark:text-neutral-300" : ""} px-4 py-3`}>
       {children}
     </Link>
   );
@@ -49,12 +53,12 @@ export const Layout = () => {
 
   return (
     <div className="theme-mode-surface transition-colors duration-150 bg-background w-screen h-screen flex p-2 gap-4">
-      <aside className="w-65 h-full rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 font-space-mono backdrop-blur-3xl">
+      <aside className="w-65 h-full rounded-lg border transition-colors duration-150 border-neutral-300 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 font-space-mono backdrop-blur-3xl">
         <nav className="flex justify-between flex-col h-full">
           <ul>
             {menuMap.map(({ href, children, title }) => (
               <li key={href}>
-                <StyledLink to={href}>{title}</StyledLink>
+                <StyledLink to={href} hasChildren={!!children}>{title}</StyledLink>
                 {!!children && (
                   <ul>
                     {children.map(({ title: childTitle, href: childHref }) => (
@@ -101,8 +105,7 @@ export const Layout = () => {
           </button>
         </nav>
       </aside>
-      <main className="bg-blue-100 h-full flex-1">
-        g
+      <main className="h-full flex-1 rounded-lg transition-colors duration-150 border border-neutral-300 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 backdrop-blur-3xl">
         <Outlet />
       </main>
     </div>

@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState, type PropsWithChildren } from "react";
 import { IoMoonSharp } from "react-icons/io5";
 import { MdSunny } from "react-icons/md";
@@ -15,7 +16,10 @@ const StyledLink = ({
 };
 
 export const Layout = () => {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(() => localStorage.getItem("theme") === "dark");
+  const [isThemeButtonHovered, setIsThemeButtonHovered] = useState(false);
+  const showsDarkIcon = isThemeButtonHovered ? !dark : dark;
+  const ThemeIcon = showsDarkIcon ? IoMoonSharp : MdSunny;
   const menuMap = [
     {
       title: "WORK",
@@ -34,50 +38,69 @@ export const Layout = () => {
   ];
 
   useEffect(() => {
-    const html = document.getElementsByTagName("html")?.[0];
     if (dark) {
-      html.classList.add("dark");
+      document.documentElement.classList.add("dark");
     } else {
-      html.classList.remove("dark");
+      document.documentElement.classList.remove("dark");
     }
 
     localStorage.setItem("theme", dark ? "dark" : "light");
   }, [dark]);
 
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    setDark(storedTheme === "dark");
-  }, []);
   return (
-    <div className="theme-mode-surface bg-background w-screen h-screen flex p-2 gap-4">
-        <aside className="w-65 h-full rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 font-space-mono backdrop-blur-3xl">
-          <nav className="flex justify-between flex-col h-full">
-            <ul>
-              {menuMap.map(({ href, children, title }) => (
-                <li key={href}>
-                  <StyledLink to={href}>{title}</StyledLink>
-                  {!!children && (
-                    <ul>
-                      {children.map(({ title: childTitle, href: childHref }) => (
-                        <li key={childHref}>
-                          <StyledLink to={childHref}>
-                            <span className="pl-4">{childTitle}</span>
-                          </StyledLink>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
-            <button
-              className="flex py-4 justify-center text-xl dark:text-neutral-100"
-              onClick={() => setDark((d) => !d)}
-            >
-              {dark ? <IoMoonSharp /> : <MdSunny />}
-            </button>
-          </nav>
-        </aside>
+    <div className="theme-mode-surface transition-colors duration-150 bg-background w-screen h-screen flex p-2 gap-4">
+      <aside className="w-65 h-full rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 font-space-mono backdrop-blur-3xl">
+        <nav className="flex justify-between flex-col h-full">
+          <ul>
+            {menuMap.map(({ href, children, title }) => (
+              <li key={href}>
+                <StyledLink to={href}>{title}</StyledLink>
+                {!!children && (
+                  <ul>
+                    {children.map(({ title: childTitle, href: childHref }) => (
+                      <li key={childHref}>
+                        <StyledLink to={childHref}>
+                          <span className="pl-4">{childTitle}</span>
+                        </StyledLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            className="flex py-4 justify-center text-xl dark:text-neutral-100"
+            onMouseEnter={() => {
+              setIsThemeButtonHovered(true);
+            }}
+            onMouseLeave={() => {
+              setIsThemeButtonHovered(false);
+            }}
+            onClick={() => {
+              setDark((d) => !d);
+            }}
+            title="toggle theme"
+            aria-label="theme toggle button"
+          >
+            <span className="relative flex size-6 items-center justify-center overflow-hidden">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.i
+                  key={showsDarkIcon ? "moon" : "sun"}
+                  className="absolute inset-0 flex items-center justify-center"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                >
+                  <ThemeIcon />
+                </motion.i>
+              </AnimatePresence>
+            </span>
+          </button>
+        </nav>
+      </aside>
       <main className="bg-blue-100 h-full flex-1">
         g
         <Outlet />

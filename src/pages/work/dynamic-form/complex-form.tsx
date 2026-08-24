@@ -1,9 +1,8 @@
 import { motion, useAnimate } from "motion/react";
-import { useState, type PropsWithChildren } from "react";
-import { TextInput } from "./common-form-ui";
+import { useState } from "react";
+import { Loading, StepTitle, TextInput } from "./common-form-ui";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { required } from "./common-form";
-import { VscLoading } from "react-icons/vsc";
 
 const scenarioTypeMap = {
   a: "면담형",
@@ -58,21 +57,8 @@ const ReadOnlyStep1 = ({ step1 }: { step1?: Step1FormType }) => {
       )}
       {step1?.scenario_nm}
     </p>
-  )
-}
-
-const StepTitle = ({ children }: PropsWithChildren) => (
-  <div className="p-4 bg-neutral-300 dark:bg-neutral-700">{children}</div>
-);
-
-const Loading = ({ className }: { className?: string }) => (
-  <div className={`${className ? className : ""} size-full absolute opacity-0 top-full left-0 bg-background/90 backdrop-blur-xs flex items-center justify-center`}>
-    <div className="flex items-center gap-3 form1-loading-text">
-      저장 중
-      <VscLoading className="animate-spin" />
-    </div>
-  </div>
-)
+  );
+};
 
 export const ComplexForm = () => {
   const [scope, animate] = useAnimate();
@@ -98,15 +84,19 @@ export const ComplexForm = () => {
       <div className="font-escoredream">
         <StepTitle>1. 기초 정보</StepTitle>
         <motion.div layout className="relative overflow-clip">
-          {submitted ? (
-            <ReadOnlyStep1 step1={form1} />
-          ) : (
-            <Step1Form submit={firstSubmit} />
-          )}
+          {submitted ? <ReadOnlyStep1 step1={form1} /> : <Step1Form submit={firstSubmit} />}
           <Loading className="form1-loading-overlay" />
         </motion.div>
+
         <StepTitle>2. 평가 항목</StepTitle>
+        <motion.div layout className="relative overflow-clip">
+          {form1 ? <></> : null}
+        </motion.div>
+
         <StepTitle>3. 점수 산정 방식</StepTitle>
+        <motion.div layout className="relative overflow-clip">
+          {form1 ? <></> : null}
+        </motion.div>
       </div>
     </div>
   );

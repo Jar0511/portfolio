@@ -4,15 +4,16 @@ import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 type StyledLinkProps = PropsWithChildren<{
-  to: string | { pathname?: string; search?: string; hash?: string; };
-  className?: string
+  to: string | { pathname?: string; search?: string; hash?: string };
+  className?: string;
 }>;
 const StyledLink = ({ to, children, className }: StyledLinkProps) => {
   return (
     <NavLink
       to={to}
-      className={({ isActive }) => `${className ? className : ''} block text-center break-keep ${isActive ? "font-semibold text-neutral-600 dark:text-neutral-300" : ""}`}
-
+      className={({ isActive }) =>
+        `${className ? className : ""} block text-center break-keep ${isActive ? "font-semibold text-neutral-600 dark:text-neutral-300" : ""}`
+      }
     >
       {children}
     </NavLink>
@@ -57,18 +58,25 @@ export const Layout = () => {
       <aside className="absolute w-[calc(100%-1rem)] top-2 left-2 rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 font-space-mono backdrop-blur-3xl overflow-clip">
         <nav className="flex justify-between items-center">
           <h1>
-            <button className="size-full flex items-center py-2 px-4" onClick={() => void navigate("/")}>HOME</button>
+            <button
+              className="size-full flex items-center py-2 px-4"
+              onClick={() => void navigate("/")}
+            >
+              HOME
+            </button>
           </h1>
           <ul className="flex items-center gap-2">
             {menuMap.map(({ href, title }, i) => (
               <li key={href}>
                 {href ? (
-                  <StyledLink to={href} className="py-2 px-4">{title}</StyledLink>
+                  <StyledLink to={href} className="py-2 px-4">
+                    {title}
+                  </StyledLink>
                 ) : (
                   <button
                     type="button"
                     onClick={() => {
-                      setOpenMenu(prev => prev == i ? null : i);
+                      setOpenMenu((prev) => (prev == i ? null : i));
                     }}
                     className="py-2 px-4"
                   >
@@ -110,11 +118,20 @@ export const Layout = () => {
         <motion.ul
           className="flex items-center text-sm justify-center border-neutral-300 border-t dark:border-neutral-700 overflow-hidden"
           animate={openMenu !== null ? "open" : "close"}
-          variants={{ "open": { height: "auto", borderTopWidth: 1, transition: { when: "beforeChildren" } }, "close": { height: 0, borderTopWidth: 0, transition: { when: "afterChildren" } } }}
+          variants={{
+            open: { height: "auto", borderTopWidth: 1, transition: { when: "beforeChildren" } },
+            close: { height: 0, borderTopWidth: 0, transition: { when: "afterChildren" } },
+          }}
         >
           {menuMap[openMenu || 0].children?.map(({ title, href }) => (
-            <motion.li key={href} className="border-r first:border-l border-neutral-300 dark:border-neutral-700" variants={{ "open": { opacity: 1 }, "close": { opacity: 0 } }}>
-              <StyledLink to={href} className="p-2">{title}</StyledLink>
+            <motion.li
+              key={href}
+              className="border-r first:border-l border-neutral-300 dark:border-neutral-700"
+              variants={{ open: { opacity: 1 }, close: { opacity: 0 } }}
+            >
+              <StyledLink to={href} className="p-2">
+                {title}
+              </StyledLink>
             </motion.li>
           ))}
         </motion.ul>

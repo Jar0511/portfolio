@@ -1,7 +1,7 @@
 import { motion, useAnimate } from "motion/react";
 import { useState } from "react";
 import { TextInput } from "./common-form-ui";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { required } from "./common-form";
 
 type Step1FormType = {
@@ -12,7 +12,7 @@ type Step1FormType = {
 }
 type Step1FormProps = {
   submitted: boolean;
-  submit: (result: Step1FormType) => Promise<void>
+  submit: SubmitHandler<Step1FormType>;
 }
 const Step1Form = ({ submitted, submit }: Step1FormProps) => {
   const {
@@ -24,7 +24,7 @@ const Step1Form = ({ submitted, submit }: Step1FormProps) => {
     }
   })
   return (
-    <form className="font-escoredream" onSubmit={handleSubmit(submit)}>
+    <form className="font-escoredream" onSubmit={(e) => void handleSubmit(submit)(e)}>
       <div className="p-4 bg-neutral-300 dark:bg-neutral-700">기초 정보</div>
       <motion.div layout className="relative">
 

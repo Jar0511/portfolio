@@ -1,5 +1,5 @@
 import { motion, useAnimate } from "motion/react";
-import { useState } from "react";
+import { useState, type PropsWithChildren } from "react";
 import { TextInput } from "./common-form-ui";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { required } from "./common-form";
@@ -14,7 +14,6 @@ type Step1FormType = {
   scenario_nm: string;
   scenario_cd: string;
   scenario_type: "a" | "b";
-  cutoff?: number;
 };
 type Step1FormProps = {
   submit: SubmitHandler<Step1FormType>;
@@ -44,17 +43,36 @@ const Step1Form = ({ submit }: Step1FormProps) => {
           </label>
         </div>
       </div>
-      <label className="flex flex-col gap-1">
-        <span>컷오프(선택)</span>
-        <div className="flex">
-          <TextInput {...register("cutoff")} />
-          <span>점</span>
-        </div>
-      </label>
       <button type="submit">저장</button>
     </form>
   );
 };
+
+const ReadOnlyStep1 = ({ step1 }: { step1?: Step1FormType }) => {
+  return (
+    <p>
+      {step1?.scenario_type ? (
+        <span className="bg-pink-50">{scenarioTypeMap[step1.scenario_type]}</span>
+      ) : (
+        ""
+      )}
+      {step1?.scenario_nm}
+    </p>
+  )
+}
+
+const StepTitle = ({ children }: PropsWithChildren) => (
+  <div className="p-4 bg-neutral-300 dark:bg-neutral-700">{children}</div>
+);
+
+const Loading = ({ className }: { className?: string }) => (
+  <div className={`${className ? className : ""} size-full absolute opacity-0 top-full left-0 bg-background/90 backdrop-blur-xs flex items-center justify-center`}>
+    <div className="flex items-center gap-3 form1-loading-text">
+      저장 중
+      <VscLoading className="animate-spin" />
+    </div>
+  </div>
+)
 
 export const ComplexForm = () => {
   const [scope, animate] = useAnimate();
@@ -78,30 +96,17 @@ export const ComplexForm = () => {
       className="rounded-lg border border-neutral-300 dark:border-neutral-700 relative overflow-clip"
     >
       <div className="font-escoredream">
-        <div className="p-4 bg-neutral-300 dark:bg-neutral-700">기초 정보</div>
-        <motion.div layout className="relative">
+        <StepTitle>1. 기초 정보</StepTitle>
+        <motion.div layout className="relative overflow-clip">
           {submitted ? (
-            <div>
-              <p>
-                {form1?.scenario_type ? (
-                  <span className="bg-pink-50">{scenarioTypeMap[form1.scenario_type]}</span>
-                ) : (
-                  ""
-                )}
-                {form1?.scenario_nm}
-              </p>
-            </div>
+            <ReadOnlyStep1 step1={form1} />
           ) : (
             <Step1Form submit={firstSubmit} />
           )}
-
-          <div className="form1-loading-overlay size-full absolute opacity-0 top-full left-0 bg-background/90 backdrop-blur-xs flex items-center justify-center">
-            <div className="flex items-center gap-3 form1-loading-text">
-              저장 중
-              <VscLoading className="animate-spin" />
-            </div>
-          </div>
+          <Loading className="form1-loading-overlay" />
         </motion.div>
+        <StepTitle>2. 평가 항목</StepTitle>
+        <StepTitle>3. 점수 산정 방식</StepTitle>
       </div>
     </div>
   );

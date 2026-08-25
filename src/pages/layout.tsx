@@ -136,7 +136,7 @@ export const Layout = () => {
           ))}
         </motion.ul>
       </aside>
-      <main className="h-full flex-1 rounded-lg text-neutral-800 dark:text-neutral-200">
+      <main className="h-full flex-1 rounded-lg text-neutral-800 dark:text-neutral-200 pt-4">
         <Outlet />
       </main>
     </div>

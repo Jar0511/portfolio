@@ -54,8 +54,8 @@ export const Layout = () => {
   }, [dark]);
 
   return (
-    <div className={` bg-background w-screen min-h-screen relative pt-20 px-2`}>
-      <aside className="absolute z-50 w-[calc(100%-1rem)] top-2 left-2 rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 font-space-mono backdrop-blur-3xl overflow-clip">
+    <div className="bg-background w-screen min-h-screen relative px-2">
+      <aside className="sticky z-50 w-full top-2 left-2 rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-500 dark:text-neutral-400 font-space-mono backdrop-blur-3xl overflow-clip">
         <nav className="flex justify-between items-center">
           <h1>
             <button

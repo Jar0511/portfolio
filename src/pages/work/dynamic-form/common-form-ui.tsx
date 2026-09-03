@@ -1,4 +1,4 @@
-import type { ComponentProps, PropsWithChildren } from "react";
+import type { ComponentProps } from "react";
 import { VscLoading } from "react-icons/vsc";
 
 export const TextInput = (props: ComponentProps<"input">) => {
@@ -10,10 +10,6 @@ export const TextInput = (props: ComponentProps<"input">) => {
     />
   );
 };
-
-export const StepTitle = ({ children }: PropsWithChildren) => (
-  <div className="p-4 bg-neutral-300 dark:bg-neutral-700">{children}</div>
-);
 
 export const Loading = ({ className }: { className?: string }) => (
   <div

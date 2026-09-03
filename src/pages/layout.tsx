@@ -126,7 +126,7 @@ export const Layout = () => {
           {menuMap[openMenu || 0].children?.map(({ title, href }) => (
             <motion.li
               key={href}
-              className="border-r first:border-l border-neutral-300 dark:border-neutral-700"
+              className="border-r md:last:border-r last:border-r-0 md:first:border-l first:border-l-0 border-neutral-300 dark:border-neutral-700"
               variants={{ open: { opacity: 1 }, close: { opacity: 0 } }}
             >
               <StyledLink to={href} className="p-2">

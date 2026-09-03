@@ -118,14 +118,20 @@ button {
 
 :root {
   --app-background: #efefef;
+  --form-line: #012c23;
+  --form-background-1: #ffc5c1;
 }
 
 .dark {
   --app-background: #030303;
+  --form-line: #e8ebea;
+  --form-background-1: #3e0400;
 }
 
 @theme inline {
   --color-background: var(--app-background);
+  --color-form-1: var(--form-background-1);
+  --color-form-line: var(--form-line);
   --font-space-mono:
     "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;

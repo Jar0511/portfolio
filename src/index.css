@@ -128,6 +128,10 @@ button {
   --form-background-1: #3e0400;
 }
 
+// @theme
+// tailwind css가 기본으로 제공하는 토큰을 오버라이드하거나,
+// 사용자 지정 토큰을 추가하여 사용하고자 할 때 쓸 수 있는 스코프
+// ※ 토큰이 var()와 같이 변수를 참조할 경우 "inline" 키워드를 추가하여 사용
 @theme inline {
   --color-background: var(--app-background);
   --color-form-1: var(--form-background-1);

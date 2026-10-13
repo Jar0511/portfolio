@@ -1,9 +1,9 @@
 import { motion, useAnimate } from "motion/react";
 import { useState, type PropsWithChildren } from "react";
-import { Loading, TextInput } from "./common-form-ui";
+import { Loading } from "./common-form-ui";
 import { useFieldArray, useForm, type SubmitHandler } from "react-hook-form";
-import { required } from "./common-form";
 import { delay } from "@/helper/animate";
+import { required, TextInput } from "@/common/form";
 
 const StepTitle = ({ children }: PropsWithChildren) => (
   <div className="p-4">{children}</div>

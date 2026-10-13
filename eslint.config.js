@@ -23,7 +23,14 @@ export default defineConfig([
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    // 문자열 리터럴 내에 숫자 직접 입력 허용
+    rules: {
+      "@typescript-eslint/restrict-template-expressions": [
+        "error",
+        {
+          allowNumber: true,
+        },
+      ],
+    },
   },
-  // 문자열 리터럴 내에 숫자 직접 입력 허용
-  { allowNumber: true },
 ]);

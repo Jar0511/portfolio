@@ -49,8 +49,8 @@ export const ComplexForm = () => {
       // step1
       await loading(1);
       setForm1(result);
-      await loading(1, "2.25rem");
       setActive(2);
+      await loading(1, "2.25rem");
     } else if ("result" in result) {
       // step2
       await loading(2);

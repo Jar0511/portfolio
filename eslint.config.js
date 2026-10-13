@@ -24,4 +24,6 @@ export default defineConfig([
       },
     },
   },
+  // 문자열 리터럴 내에 숫자 직접 입력 허용
+  { allowNumber: true },
 ]);

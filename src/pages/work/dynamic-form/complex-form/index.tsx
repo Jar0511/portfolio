@@ -4,6 +4,7 @@ import { Loading } from "../common-form-ui";
 import { delay } from "@/helper/animate";
 import { ReadOnlyStep1, Step1Form } from "./step1-form";
 import { ReadOnlyStep2, Step2Form } from "./step2-form";
+import { ReadOnlyStep3, Step3Form } from "./step3-form";
 import type { Step1FormType, Step2FormType, Step3FormType } from "./type";
 import { useSetAtom } from "jotai";
 import { Form1Atom, Form2Atom, Form3Atom } from "./atom";
@@ -60,6 +61,8 @@ export const ComplexForm = () => {
       // step3
       await loading(3);
       setForm3(result);
+      setActive(4);
+      await loading(3, "auto");
     }
   };
 
@@ -87,9 +90,10 @@ export const ComplexForm = () => {
 
         <section>
           <StepTitle>3. 점수 산정 방식</StepTitle>
-          <motion.div layout="size" className="relative overflow-clip">
-            {active == 3 ? <></> : null}
-          </motion.div>
+          <StepBody className="form3-wrapper">
+            {active == 3 ? <Step3Form submit={submit} /> : <ReadOnlyStep3 />}
+            <Loading className="form3-loading-overlay" />
+          </StepBody>
         </section>
       </div>
     </div>

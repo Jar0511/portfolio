@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ComponentProps } from "react";
 import { useFieldArray, useForm, useWatch, type UseFormReturn } from "react-hook-form";
 import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
 import {
@@ -12,6 +12,14 @@ import { Form2Atom } from "./atom";
 import { initialSkills } from "./constants";
 import type { Step2FormType } from "./type";
 
+const Button = ({ className, type = "button", ...props }: ComponentProps<"button">) => (
+  <button
+    {...props}
+    type={type}
+    className={`rounded border border-neutral-400 px-3 py-1 text-sm enabled:cursor-pointer disabled:opacity-40${className ? ` ${className}` : ""}`}
+  />
+);
+
 type Skill = Step2FormType["result"][number];
 type Question = Skill["questions"][number];
 type MoveQuestion = (
@@ -22,8 +30,6 @@ type MoveQuestion = (
 ) => void;
 type MoveSkill = (skillId: string, targetId: string, after?: boolean) => void;
 const optionNumbers = [1, 2, 3, 4, 5, 6] as const;
-const buttonClass =
-  "rounded border border-neutral-400 px-3 py-1 text-sm enabled:cursor-pointer disabled:opacity-40";
 const nonBlank = (value: string) => value.trim().length > 0 || "내용을 입력해주세요.";
 const newQuestion = (idx: number): Question => ({
   question_id: crypto.randomUUID(),
@@ -153,18 +159,16 @@ const QuestionCard = ({
         />
       )}
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <button
+        <Button
           ref={handleRef}
-          type="button"
-          className={`${buttonClass} cursor-grab touch-none`}
+
+          className="cursor-grab touch-none"
           aria-label={`문제 ${questionIndex + 1} 드래그로 이동`}
         >
           ⠿
-        </button>
+        </Button>
         <span className="mr-auto">문제 {questionIndex + 1}</span>
-        <button
-          type="button"
-          className={buttonClass}
+        <Button
           disabled={questionIndex === 0}
           onClick={() => {
             moveQuestion(
@@ -175,10 +179,8 @@ const QuestionCard = ({
           }}
         >
           위로
-        </button>
-        <button
-          type="button"
-          className={buttonClass}
+        </Button>
+        <Button
           disabled={questionIndex === skills[skillIndex].questions.length - 1}
           onClick={() => {
             moveQuestion(
@@ -190,7 +192,7 @@ const QuestionCard = ({
           }}
         >
           아래로
-        </button>
+        </Button>
         <select
           aria-label={`문제 ${questionIndex + 1} 이동할 스킬`}
           className="max-w-full rounded border border-neutral-400 p-1 text-sm"
@@ -210,9 +212,7 @@ const QuestionCard = ({
               </option>
             ))}
         </select>
-        <button type="button" className={buttonClass} onClick={remove}>
-          문제 삭제
-        </button>
+        <Button onClick={remove}>문제 삭제</Button>
       </div>
       <label className="flex flex-col gap-1">
         <span>문제 내용</span>
@@ -266,9 +266,8 @@ const QuestionCard = ({
                 </span>
               )}
             </label>
-            <button
-              type="button"
-              className={`${buttonClass} mt-6`}
+            <Button
+              className="mt-6"
               disabled={count <= 2}
               onClick={() => {
                 removeOption(number);
@@ -276,19 +275,18 @@ const QuestionCard = ({
               aria-label={`선택지 ${number} 삭제`}
             >
               삭제
-            </button>
+            </Button>
           </div>
         ))}
-        <button
-          type="button"
-          className={`${buttonClass} self-start`}
+        <Button
+          className="self-start"
           disabled={count >= 6}
           onClick={() => {
             setValue(`${path}.option_count`, count + 1, { shouldDirty: true });
           }}
         >
           선택지 추가 ({count}/6)
-        </button>
+        </Button>
       </div>
     </div>
   );
@@ -388,20 +386,18 @@ export const QuestionForm = ({
         />
       )}
       <div className="flex flex-wrap items-center gap-2">
-        <button
+        <Button
           ref={handleRef}
-          type="button"
-          className={`${buttonClass} cursor-grab touch-none`}
+
+          className="cursor-grab touch-none"
           aria-label={`${skill.skill_name} 스킬 드래그로 이동`}
         >
           ⠿
-        </button>
+        </Button>
         <h3 className="mr-auto font-bold">
           {skill.skill_name} <span className="text-sm font-normal">({fields.length}문제)</span>
         </h3>
-        <button
-          type="button"
-          className={buttonClass}
+        <Button
           disabled={idx === 0}
           aria-label={`${skill.skill_name} 스킬 위로 이동`}
           onClick={() => {
@@ -409,10 +405,8 @@ export const QuestionForm = ({
           }}
         >
           위로
-        </button>
-        <button
-          type="button"
-          className={buttonClass}
+        </Button>
+        <Button
           disabled={idx === skills.length - 1}
           aria-label={`${skill.skill_name} 스킬 아래로 이동`}
           onClick={() => {
@@ -420,10 +414,8 @@ export const QuestionForm = ({
           }}
         >
           아래로
-        </button>
-        <button type="button" className={buttonClass} onClick={removeSkill}>
-          스킬 삭제
-        </button>
+        </Button>
+        <Button onClick={removeSkill}>스킬 삭제</Button>
       </div>
       {fields.map((question, questionIndex) => (
         <QuestionCard
@@ -445,15 +437,14 @@ export const QuestionForm = ({
           문제를 추가하거나 다른 스킬의 문제를 여기로 옮겨주세요.
         </p>
       )}
-      <button
-        type="button"
-        className={`${buttonClass} self-start`}
+      <Button
+        className="self-start"
         onClick={() => {
           append(newQuestion(fields.length));
         }}
       >
         문제 추가
-      </button>
+      </Button>
     </section>
   );
 };
@@ -683,9 +674,7 @@ export const Step2Form = ({ submit }: Step2FormProps) => {
                 }
               }}
             />
-            <button
-              type="button"
-              className={buttonClass}
+            <Button
               disabled={
                 !optionCount ||
                 (!canCreate && fields.some((skill) => skill.skill_id === matches[cursor]?.skill_id))
@@ -695,7 +684,7 @@ export const Step2Form = ({ submit }: Step2FormProps) => {
               }}
             >
               추가
-            </button>
+            </Button>
           </div>
           {open && (
             <ul
@@ -782,9 +771,9 @@ export const Step2Form = ({ submit }: Step2FormProps) => {
         <p role="status" aria-live="polite" className="text-sm">
           {message}
         </p>
-        <button type="submit" className={`${buttonClass} self-end`}>
+        <Button type="submit" className="self-end">
           {isSubmitting ? "저장 중" : "평가 항목 저장"}
-        </button>
+        </Button>
       </fieldset>
     </form>
   );

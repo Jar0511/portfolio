@@ -67,7 +67,7 @@ export const Layout = () => {
           </h1>
           <ul className="flex items-center gap-2">
             {menuMap.map(({ href, title }, i) => (
-              <li key={href}>
+              <li key={`${title}_${href || "none"}`}>
                 {href ? (
                   <StyledLink to={href} className="py-2 px-4">
                     {title}
@@ -125,7 +125,7 @@ export const Layout = () => {
         >
           {menuMap[openMenu || 0].children?.map(({ title, href }) => (
             <motion.li
-              key={href}
+              key={`${title}_${href}`}
               className="border-r md:last:border-r last:border-r-0 md:first:border-l first:border-l-0 border-neutral-300 dark:border-neutral-700"
               variants={{ open: { opacity: 1 }, close: { opacity: 0 } }}
             >

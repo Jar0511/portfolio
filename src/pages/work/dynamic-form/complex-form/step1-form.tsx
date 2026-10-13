@@ -7,11 +7,12 @@ import { Form1Atom } from "./atom";
 import { motion } from "motion/react";
 
 type Step1FormProps = {
-  submit: (data: Step1FormType) => Promise<void>
-}
+  submit: (data: Step1FormType) => Promise<void>;
+};
 export const Step1Form = ({ submit }: Step1FormProps) => {
   const { register, handleSubmit } = useForm<Step1FormType>({
     defaultValues: {
+      scenario_id: crypto.randomUUID(),
       scenario_type: "a",
     },
   });
@@ -35,8 +36,8 @@ export const Step1Form = ({ submit }: Step1FormProps) => {
       </div>
       <button type="submit">저장</button>
     </form>
-  )
-}
+  );
+};
 
 export const ReadOnlyStep1 = () => {
   const step1 = useAtomValue(Form1Atom);

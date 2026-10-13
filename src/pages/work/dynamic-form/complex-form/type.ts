@@ -15,6 +15,7 @@ export type Step2FormType = {
       question_id: string;
       idx: number;
       question_subject: string;
+      option_count: number;
       option_1: string;
       option_1_score: number;
       option_2: string;

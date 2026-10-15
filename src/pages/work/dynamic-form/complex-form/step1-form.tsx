@@ -3,13 +3,15 @@ import type { Step1FormType } from "./type";
 import { RadioBox, required, TextInput } from "@/common/form";
 import { scenarioTypeMap } from "./constants";
 import { useAtomValue } from "jotai";
-import { Form1Atom } from "./atom";
+import { ActiveFormAtom, Form1Atom } from "./atom";
 import { motion } from "motion/react";
+import { StepBody, StepTitle, StepWrapper } from "./ui";
+import { Loading } from "../common-form-ui";
 
-type Step1FormProps = {
+type ActiveStep1FormProps = {
   submit: (data: Step1FormType) => Promise<void>;
 };
-export const Step1Form = ({ submit }: Step1FormProps) => {
+const ActiveStep1Form = ({ submit }: ActiveStep1FormProps) => {
   const { register, handleSubmit } = useForm<Step1FormType>({
     defaultValues: {
       scenario_id: crypto.randomUUID(),
@@ -39,12 +41,14 @@ export const Step1Form = ({ submit }: Step1FormProps) => {
   );
 };
 
-export const ReadOnlyStep1 = () => {
+const ReadOnlyStep1 = () => {
   const step1 = useAtomValue(Form1Atom);
   return (
-    <motion.p layout="position">
+    <motion.p layout="position" className="flex items-center gap-1">
       {step1?.scenario_type ? (
-        <span className="bg-pink-50">{scenarioTypeMap[step1.scenario_type]}</span>
+        <span className="text-xs bg-blue-500 rounded-full py-1 px-2 text-white">
+          {scenarioTypeMap[step1.scenario_type]}
+        </span>
       ) : (
         ""
       )}
@@ -52,3 +56,25 @@ export const ReadOnlyStep1 = () => {
     </motion.p>
   );
 };
+
+type Step1FormProps = ActiveStep1FormProps;
+
+export const Step1Form = ({ submit }: Step1FormProps) => {
+  const active = useAtomValue(ActiveFormAtom);
+  const is_active = active == 1;
+
+  return (
+    <StepWrapper>
+      <StepTitle index={1} active={is_active}>
+        <div className="flex flex-col gap-1">
+          <div className="text-lg font-medium">기초 정보</div>
+          {is_active ? null : <ReadOnlyStep1 />}
+        </div>
+      </StepTitle>
+      <StepBody className="form1-wrapper h-48">
+        {is_active ? <ActiveStep1Form submit={submit} /> : null}
+        <Loading className="form1-loading-overlay" />
+      </StepBody>
+    </StepWrapper>
+  )
+}

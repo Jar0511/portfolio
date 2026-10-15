@@ -5,7 +5,7 @@ export const TextInput = (props: Omit<ComponentProps<"input">, "type">) => {
     <input
       {...props}
       type="text"
-      className="border p-1 border-neutral-400 focus:border-neutral-600 focus:outline-0 rounded-sm"
+      className="border p-1 border-neutral-400 invalid:border-red-500 focus:border-neutral-600 focus:outline-0 rounded-sm"
     />
   );
 };

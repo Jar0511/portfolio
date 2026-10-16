@@ -29,7 +29,7 @@ export const RadioBox = ({ inline, children, gap = "0.4em", ...props }: RadioBox
         className="hidden peer"
       />
       <span
-        className="rounded-full size-[1em] peer-checked:bg-red-700 bg-background border-background border-[0.25em] outline-1 outline-neutral-400 transition-colors"
+        className="rounded-full size-[1em] peer-checked:bg-form-line bg-background border-background border-[0.25em] outline-1 outline-neutral-400 transition-colors"
       />
       {children}
     </label>

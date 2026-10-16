@@ -8,9 +8,11 @@ import {
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { useAtomValue } from "jotai";
 import { TextInput } from "@/common/form";
-import { Form2Atom } from "./atom";
+import { ActiveFormAtom, Form2Atom } from "./atom";
 import { initialSkills } from "./constants";
 import type { Step2FormType } from "./type";
+import { StepBody, StepTitle, StepWrapper } from "./ui";
+import { Loading } from "../common-form-ui";
 
 const Button = ({ className, type = "button", ...props }: ComponentProps<"button">) => (
   <button
@@ -301,7 +303,7 @@ type QuestionFormProps = {
   moveSkill: MoveSkill;
   removeSkill: () => void;
 };
-export const QuestionForm = ({
+const QuestionForm = ({
   form,
   idx,
   skill,
@@ -349,12 +351,12 @@ export const QuestionForm = ({
           after:
             source.data.kind === "skill" &&
             input.clientY >
-              element.getBoundingClientRect().top + element.getBoundingClientRect().height / 2,
+            element.getBoundingClientRect().top + element.getBoundingClientRect().height / 2,
         }),
         onDrag: ({ location, self, source }) => {
           setOver(
             source.data.kind === "question" &&
-              location.current.dropTargets.at(0)?.element === self.element,
+            location.current.dropTargets.at(0)?.element === self.element,
           );
           setEdge(
             source.data.kind === "skill" && source.data.skillId !== skill.skill_id
@@ -450,7 +452,7 @@ export const QuestionForm = ({
 };
 
 type Step2FormProps = { submit: (data: Step2FormType) => Promise<void> };
-export const ReadOnlyStep2 = () => {
+const ReadOnlyStep2 = () => {
   const step2 = useAtomValue(Form2Atom);
   if (!step2) return null;
 
@@ -490,7 +492,18 @@ export const ReadOnlyStep2 = () => {
   );
 };
 
-export const Step2Form = ({ submit }: Step2FormProps) => {
+const AbstractForm2 = () => {
+  const step2 = useAtomValue(Form2Atom);
+  if (!step2) return null;
+
+  return (
+    <p className="text-sm">
+      {step2.result.map((skill) => `${skill.skill_name}(${skill.questions.length})`).join(', ')}
+    </p>
+  )
+}
+
+const ActiveStep2Form = ({ submit }: Step2FormProps) => {
   const saved = useAtomValue(Form2Atom);
   const form = useForm<Step2FormType>({ defaultValues: saved ?? { result: [] } });
   const {
@@ -778,3 +791,22 @@ export const Step2Form = ({ submit }: Step2FormProps) => {
     </form>
   );
 };
+
+export const Step2Form = ({ submit }: Step2FormProps) => {
+  const active = useAtomValue(ActiveFormAtom);
+  const is_active = active == 2;
+  return (
+    <StepWrapper>
+      <StepTitle index={2} active={is_active} locked={active == 1}>
+        <div className="flex flex-col gap-1">
+          <div className="text-lg font-medium">평가 항목</div>
+          {is_active ? null : <AbstractForm2 />}
+        </div>
+      </StepTitle>
+      <StepBody className="form2-wrapper">
+        {is_active ? <ActiveStep2Form submit={submit} /> : <ReadOnlyStep2 />}
+        <Loading className="form2-loading-overlay" />
+      </StepBody>
+    </StepWrapper>
+  )
+}

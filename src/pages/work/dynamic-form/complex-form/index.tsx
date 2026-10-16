@@ -4,6 +4,7 @@ import { Step1Form } from "./step1-form";
 import type { Step1FormType, Step2FormType, Step3FormType } from "./type";
 import { useSetAtom } from "jotai";
 import { ActiveFormAtom, Form1Atom, Form2Atom, Form3Atom } from "./atom";
+import { Step2Form } from "./step2-form";
 
 export const ComplexForm = () => {
   const [scope, animate] = useAnimate();
@@ -61,7 +62,7 @@ export const ComplexForm = () => {
     >
       <div className="font-escoredream">
         <Step1Form submit={submit} />
-
+        <Step2Form submit={submit} />
         {/* <StepWrapper>
           <StepTitle index={2} active={active == 2} locked={active == 1}>평가 항목</StepTitle>
           <StepBody className="form2-wrapper">

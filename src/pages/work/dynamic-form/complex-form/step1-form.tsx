@@ -44,7 +44,7 @@ const ActiveStep1Form = ({ submit }: ActiveStep1FormProps) => {
 const ReadOnlyStep1 = () => {
   const step1 = useAtomValue(Form1Atom);
   return (
-    <motion.p layout="position" className="flex items-center gap-1">
+    <motion.p layout="position" className="flex items-center gap-1 text-sm">
       {step1?.scenario_type ? (
         <span className="text-xs bg-blue-500 rounded-full py-1 px-2 text-white">
           {scenarioTypeMap[step1.scenario_type]}

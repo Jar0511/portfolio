@@ -5,4 +5,6 @@ export const Form1Atom = atom<Step1FormType>();
 export const Form2Atom = atom<Step2FormType>();
 export const Form3Atom = atom<Step3FormType>();
 
-export const ActiveFormAtom = atom<number>(1);
+export const Form2ROOpenAtom = atom(false);
+
+export const ActiveFormAtom = atom(1);

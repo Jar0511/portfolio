@@ -2,8 +2,10 @@ import { useAtomValue } from "jotai";
 import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { RadioBox } from "@/common/form";
-import { Form2Atom, Form3Atom } from "./atom";
+import { ActiveFormAtom, Form2Atom, Form3Atom } from "./atom";
 import type { Step2FormType, Step3FormType } from "./type";
+import { StepBody, StepTitle, StepWrapper } from "./ui";
+import { Loading } from "../common-form-ui";
 
 const optionNumbers = [1, 2, 3, 4, 5, 6] as const;
 const inputClass =
@@ -44,7 +46,7 @@ const distributeRatio = (skills: SkillScore[]): NonNullable<Step3FormType["skill
   });
 };
 
-export const ReadOnlyStep3 = () => {
+const ReadOnlyStep3 = () => {
   const step2 = useAtomValue(Form2Atom);
   const step3 = useAtomValue(Form3Atom);
   if (!step3) return null;
@@ -88,8 +90,42 @@ export const ReadOnlyStep3 = () => {
   );
 };
 
+const AbstractForm3 = () => {
+  const step3 = useAtomValue(Form3Atom);
+  const step2 = useAtomValue(Form2Atom);
+  if (!step3 || !step2) return null;
+
+  const raw_max_points = step2.result.reduce(
+    (skillSum, skill) =>
+      skillSum + skill.questions.reduce(
+        (questionSum, question) =>
+          questionSum + Math.max(
+            question.option_1_score || 0,
+            question.option_2_score || 0,
+            question.option_3_score || 0,
+            question.option_4_score || 0,
+            question.option_5_score || 0,
+            question.option_6_score || 0
+          )
+        , 0
+      )
+    , 0
+  )
+  return (
+    <p className="text-sm">
+      ◎ 컷 오프 {step3.cutoff.value}점/{step3.cutoff.type == "convt" ? "100점" : `${raw_max_points}점`}
+      {step3.use_skill_ratio ? ` ◎ 스킬별 성적 반영 비율: ${step2.result.map((skill) => {
+        const ratio = step3.skill_ratio?.find(
+          (ratio) => ratio.skill_id === skill.skill_id
+        );
+        return `${skill.skill_name}(${ratio?.percent ?? 0}%)`;
+      }).join(", ")}` : ''}
+    </p>
+  )
+}
+
 type Step3FormProps = { submit: (data: Step3FormType) => Promise<void> };
-export const Step3Form = ({ submit }: Step3FormProps) => {
+const ActiveStep3Form = ({ submit }: Step3FormProps) => {
   const step2 = useAtomValue(Form2Atom);
   const saved = useAtomValue(Form3Atom);
   const skills = getSkillScores(step2?.result ?? []);
@@ -150,8 +186,8 @@ export const Step3Form = ({ submit }: Step3FormProps) => {
         "cutoff.value",
         rawMaximum > 0
           ? Math.round(
-              (type === "convt" ? (value / rawMaximum) * 100 : (value / 100) * rawMaximum) * 100,
-            ) / 100
+            (type === "convt" ? (value / rawMaximum) * 100 : (value / 100) * rawMaximum) * 100,
+          ) / 100
           : 0,
         { shouldDirty: true },
       );
@@ -363,3 +399,24 @@ export const Step3Form = ({ submit }: Step3FormProps) => {
     </form>
   );
 };
+
+export const Step3Form = ({ submit }: Step3FormProps) => {
+  const active = useAtomValue(ActiveFormAtom);
+  const is_active = active == 3;
+  return (
+    <StepWrapper>
+      <StepTitle
+        index={3}
+        active={is_active}
+        locked={active == 1 || active == 2}
+        title="점수 산정 방식"
+      >
+        <AbstractForm3 />
+      </StepTitle>
+      <StepBody className="form3-wrapper">
+        {is_active ? <ActiveStep3Form submit={submit} /> : <ReadOnlyStep3 />}
+        <Loading className="form3-loading-overlay" />
+      </StepBody>
+    </StepWrapper>
+  )
+}

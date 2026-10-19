@@ -1,10 +1,11 @@
 import { useAnimate } from "motion/react";
-import { delay } from "@/helper/animate";
 import { Step1Form } from "./step1-form";
 import type { Step1FormType, Step2FormType, Step3FormType } from "./type";
 import { useSetAtom } from "jotai";
 import { ActiveFormAtom, Form1Atom, Form2Atom, Form3Atom } from "./atom";
 import { Step2Form } from "./step2-form";
+import { delay } from "@/common/animation";
+import { Step3Form } from "./step3-form";
 
 export const ComplexForm = () => {
   const [scope, animate] = useAnimate();
@@ -63,21 +64,7 @@ export const ComplexForm = () => {
       <div className="font-escoredream">
         <Step1Form submit={submit} />
         <Step2Form submit={submit} />
-        {/* <StepWrapper>
-          <StepTitle index={2} active={active == 2} locked={active == 1}>평가 항목</StepTitle>
-          <StepBody className="form2-wrapper">
-            {active == 2 ? <Step2Form submit={submit} /> : <ReadOnlyStep2 />}
-            <Loading className="form2-loading-overlay" />
-          </StepBody>
-        </StepWrapper>
-
-        <StepWrapper>
-          <StepTitle index={3} active={active == 3} locked={active != 3}>점수 산정 방식</StepTitle>
-          <StepBody className="form3-wrapper">
-            {active == 3 ? <Step3Form submit={submit} /> : <ReadOnlyStep3 />}
-            <Loading className="form3-loading-overlay" />
-          </StepBody>
-        </StepWrapper> */}
+        <Step3Form submit={submit} />
       </div>
     </div>
   );

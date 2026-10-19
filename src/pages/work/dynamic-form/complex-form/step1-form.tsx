@@ -65,11 +65,8 @@ export const Step1Form = ({ submit }: Step1FormProps) => {
 
   return (
     <StepWrapper>
-      <StepTitle index={1} active={is_active}>
-        <div className="flex flex-col gap-1">
-          <div className="text-lg font-medium">기초 정보</div>
-          {is_active ? null : <ReadOnlyStep1 />}
-        </div>
+      <StepTitle index={1} active={is_active} title="기초 정보">
+        {is_active ? null : <ReadOnlyStep1 />}
       </StepTitle>
       <StepBody className="form1-wrapper h-48">
         {is_active ? <ActiveStep1Form submit={submit} /> : null}

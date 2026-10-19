@@ -1,8 +1,20 @@
 import { motion } from "motion/react";
-import { type PropsWithChildren } from "react";
+import { type PropsWithChildren, type ReactNode } from "react";
 import { MdCheck, MdLockOutline } from "react-icons/md";
 
-export const StepTitle = ({ children, active, locked, index }: PropsWithChildren<{ active?: boolean; locked?: boolean, index: number }>) => {
+type StepTitleProps = PropsWithChildren<{
+  active?: boolean;
+  locked?: boolean;
+  index: number;
+  title: ReactNode;
+}>;
+export const StepTitle = ({
+  children,
+  active,
+  locked,
+  index,
+  title
+}: StepTitleProps) => {
   return (
     <div className="px-4">
       <div className={`gap-2 py-4 flex items-center ${index != 3 ? 'border-b dark:border-b-form-line/40 border-b-form-line/15' : ''}`}>
@@ -12,7 +24,12 @@ export const StepTitle = ({ children, active, locked, index }: PropsWithChildren
         >
           {active ? `0${index}` : locked ? <MdLockOutline /> : <MdCheck />}
         </span>
-        {children}
+        <div className="flex flex-col gap-1 flex-1">
+          <div className="text-lg font-medium">
+            {title}
+          </div>
+          {children}
+        </div>
       </div>
     </div>
   )

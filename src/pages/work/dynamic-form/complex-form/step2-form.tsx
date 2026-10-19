@@ -6,13 +6,16 @@ import {
   dropTargetForElements,
   monitorForElements,
 } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { TextInput } from "@/common/form";
-import { ActiveFormAtom, Form2Atom } from "./atom";
+import { ActiveFormAtom, Form2Atom, Form2ROOpenAtom } from "./atom";
 import { initialSkills } from "./constants";
 import type { Step2FormType } from "./type";
 import { StepBody, StepTitle, StepWrapper } from "./ui";
 import { Loading } from "../common-form-ui";
+import { motion } from "motion/react";
+import { fadeOpenVariants } from "@/common/animation";
+import { VscChevronDown } from "react-icons/vsc";
 
 const Button = ({ className, type = "button", ...props }: ComponentProps<"button">) => (
   <button
@@ -451,44 +454,48 @@ const QuestionForm = ({
   );
 };
 
+
 type Step2FormProps = { submit: (data: Step2FormType) => Promise<void> };
 const ReadOnlyStep2 = () => {
   const step2 = useAtomValue(Form2Atom);
+  const open = useAtomValue(Form2ROOpenAtom);
   if (!step2) return null;
 
   return (
-    <div className="flex flex-col gap-4 p-4">
-      {step2.result.map((skill) => (
-        <section key={skill.skill_id} className="rounded border border-neutral-300 bg-white/40 p-3">
-          <h3 className="mb-3 font-bold">
-            {skill.skill_name}{" "}
-            <span className="text-sm font-normal">({skill.questions.length}문제)</span>
-          </h3>
-          <ol className="flex flex-col gap-3">
-            {skill.questions.map((question, index) => (
-              <li
-                key={question.question_id}
-                className="rounded border border-neutral-300 bg-white/80 p-3"
-              >
-                <p className="mb-1 text-sm text-neutral-600">문제 {index + 1}</p>
-                <p className="whitespace-pre-wrap wrap-anywhere">{question.question_subject}</p>
-                <ol className="mt-3 flex flex-col gap-2">
-                  {optionNumbers.slice(0, question.option_count).map((number) => (
-                    <li key={number} className="flex items-start gap-3 text-sm">
-                      <span className="shrink-0 text-neutral-600">{number}.</span>
-                      <span className="min-w-0 flex-1 whitespace-pre-wrap wrap-anywhere">
-                        {question[`option_${number}`]}
-                      </span>
-                      <span className="shrink-0">{question[`option_${number}_score`]}점</span>
-                    </li>
-                  ))}
-                </ol>
-              </li>
-            ))}
-          </ol>
-        </section>
-      ))}
-    </div>
+    <motion.div animate={open ? "open" : "close"} variants={fadeOpenVariants.parent} className=" overflow-clip">
+      <motion.div variants={fadeOpenVariants.child} className="flex flex-col gap-4 p-4">
+        {step2.result.map((skill) => (
+          <section key={skill.skill_id} className="rounded border border-neutral-300 bg-white/40 p-3">
+            <h3 className="mb-3 font-bold">
+              {skill.skill_name}{" "}
+              <span className="text-sm font-normal">({skill.questions.length}문제)</span>
+            </h3>
+            <ol className="flex flex-col gap-3">
+              {skill.questions.map((question, index) => (
+                <li
+                  key={question.question_id}
+                  className="rounded border border-neutral-300 bg-white/80 p-3"
+                >
+                  <p className="mb-1 text-sm text-neutral-600">문제 {index + 1}</p>
+                  <p className="whitespace-pre-wrap wrap-anywhere">{question.question_subject}</p>
+                  <ol className="mt-3 flex flex-col gap-2">
+                    {optionNumbers.slice(0, question.option_count).map((number) => (
+                      <li key={number} className="flex items-start gap-3 text-sm">
+                        <span className="shrink-0 text-neutral-600">{number}.</span>
+                        <span className="min-w-0 flex-1 whitespace-pre-wrap wrap-anywhere">
+                          {question[`option_${number}`]}
+                        </span>
+                        <span className="shrink-0">{question[`option_${number}_score`]}점</span>
+                      </li>
+                    ))}
+                  </ol>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))}
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -794,14 +801,24 @@ const ActiveStep2Form = ({ submit }: Step2FormProps) => {
 
 export const Step2Form = ({ submit }: Step2FormProps) => {
   const active = useAtomValue(ActiveFormAtom);
+  const [open, setOpen] = useAtom(Form2ROOpenAtom);
   const is_active = active == 2;
   return (
     <StepWrapper>
-      <StepTitle index={2} active={is_active} locked={active == 1}>
-        <div className="flex flex-col gap-1">
-          <div className="text-lg font-medium">평가 항목</div>
-          {is_active ? null : <AbstractForm2 />}
-        </div>
+      <StepTitle
+        index={2}
+        active={is_active}
+        locked={active == 1}
+        title={"평가 항목"}
+      >
+        {is_active ? null :
+          <div className="flex items-center justify-between">
+            <AbstractForm2 />
+            <button type="button" className={open ? 'rotate-180' : 'rotate-0'} onClick={() => { setOpen(o => !o) }}>
+              <VscChevronDown />
+            </button>
+          </div>
+        }
       </StepTitle>
       <StepBody className="form2-wrapper">
         {is_active ? <ActiveStep2Form submit={submit} /> : <ReadOnlyStep2 />}

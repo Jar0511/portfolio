@@ -55,7 +55,7 @@ export default function NestedTable() {
       title="Nested table"
       subtitle="UI EXPERIMENT / 02"
     >
-      <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500 dark:text-neutral-400">
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500 dark:text-neutral-400 pb-2">
         <p>※ 모든 내용은 가상의 데이터입니다.</p>
         <button
           type="button"

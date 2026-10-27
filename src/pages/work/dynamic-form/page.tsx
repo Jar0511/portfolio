@@ -1,9 +1,13 @@
+import { TitledSection } from "@/common/layout";
 import { ComplexForm } from "./complex-form";
 
 export default function DynamicForm() {
   return (
-    <div>
+    <TitledSection
+      title="Dynamic form"
+      subtitle="UI EXPERIMENT / 01"
+    >
       <ComplexForm />
-    </div>
+    </TitledSection>
   );
 }

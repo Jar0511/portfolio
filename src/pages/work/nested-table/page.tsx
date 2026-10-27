@@ -1,6 +1,6 @@
+import { TitledSection } from "@/common/layout";
 import { useRef, useState } from "react";
 import {
-  FiArrowDown,
   FiArrowUp,
   FiChevronDown,
   FiChevronRight,
@@ -33,7 +33,6 @@ const tasks = [
 const statuses = ["완료", "진행 중", "검토 중", "예정"] as const;
 const columns = "grid grid-cols-[76px_minmax(280px,1fr)_140px_140px_140px] items-center";
 const cell = "min-w-0 px-5";
-const totalTasks = groups.reduce((total, group) => total + group.count, 0);
 
 export default function NestedTable() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -52,30 +51,12 @@ export default function NestedTable() {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-2 py-8 font-escoredream sm:px-6 sm:py-12">
-      <div className="mb-8 flex flex-wrap items-end justify-between gap-5">
-        <div>
-          <p className="mb-3 font-space-mono text-xs tracking-[0.18em] text-neutral-500 dark:text-neutral-400">
-            UI EXPERIMENT / 02
-          </p>
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Nested table</h1>
-          <p className="mt-3 text-sm leading-6 text-neutral-500 dark:text-neutral-400">
-            헤더는 그대로, 부모 행은 현재 보고 있는 작업을 따라갑니다.
-          </p>
-        </div>
-        <div className="flex items-center gap-3 text-xs text-neutral-500 dark:text-neutral-400">
-          <span className="size-2 rounded-full bg-neutral-400" />
-          <span>부모 {groups.length}개</span>
-          <span aria-hidden="true">/</span>
-          <span>자식 {totalTasks}개</span>
-        </div>
-      </div>
-
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500 dark:text-neutral-400">
-        <p className="flex items-center gap-2">
-          <FiArrowDown aria-hidden="true" />
-          부모 행을 열고 테이블 안에서 스크롤해 보세요
-        </p>
+    <TitledSection
+      title="Nested table"
+      subtitle="UI EXPERIMENT / 02"
+    >
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-500 dark:text-neutral-400">
+        <p>※ 모든 내용은 가상의 데이터입니다.</p>
         <button
           type="button"
           onClick={() => scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" })}
@@ -92,7 +73,7 @@ export default function NestedTable() {
         tabIndex={0}
         className="isolate h-[min(640px,70dvh)] min-h-80 overflow-auto overscroll-contain bg-white text-neutral-800 outline-offset-4 focus-visible:outline-2 focus-visible:outline-neutral-500 dark:bg-neutral-950 dark:text-neutral-200"
       >
-        <div role="table" aria-label="프로젝트와 하위 작업" className="min-w-[840px] text-sm">
+        <div role="table" aria-label="프로젝트와 하위 작업" className="min-w-210 text-sm">
           {/* 부모 헤더(48px) 아래에 현재 그룹의 부모 행과 자식 헤더가 붙습니다. */}
           <div role="rowgroup" className="sticky top-0 z-30">
             <div
@@ -135,9 +116,6 @@ export default function NestedTable() {
                         <FiChevronRight aria-hidden="true" className="shrink-0" />
                       )}
                       <span>{group.name}</span>
-                      <span className="ml-auto shrink-0 text-xs font-normal text-neutral-500 dark:text-neutral-400">
-                        {expandedGroups.has(group.name) ? "접기" : "열기"}
-                      </span>
                     </button>
                   </div>
                   <div role="cell" className={cell}>
@@ -216,11 +194,6 @@ export default function NestedTable() {
           ))}
         </div>
       </div>
-
-      <div className="mt-4 flex flex-wrap justify-between gap-2 text-[11px] leading-5 text-neutral-500 dark:text-neutral-400">
-        <p>고정 순서: 부모 헤더 → 현재 부모 행 → 자식 헤더</p>
-        <p>다음 부모 행이 올라오면 이전 부모 행을 밀어냅니다.</p>
-      </div>
-    </section>
+    </TitledSection>
   );
 }

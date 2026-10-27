@@ -34,7 +34,7 @@ const statuses = ["완료", "진행 중", "검토 중", "예정"] as const;
 const columns = "grid grid-cols-[76px_minmax(280px,1fr)_140px_140px_140px] items-center";
 const cell = "min-w-0 px-5";
 
-export default function NestedTable() {
+export default function NestedTablePage() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => new Set());
 

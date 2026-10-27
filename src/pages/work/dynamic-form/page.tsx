@@ -1,7 +1,7 @@
 import { TitledSection } from "@/common/layout";
 import { ComplexForm } from "./complex-form";
 
-export default function DynamicForm() {
+export default function DynamicFormPage() {
   return (
     <TitledSection
       title="Dynamic form"

@@ -2,7 +2,7 @@ import { TitledSection } from "@/common/layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
-export default function DraggableLayout() {
+export default function DraggableLayoutPage() {
 
   return (
     <TitledSection

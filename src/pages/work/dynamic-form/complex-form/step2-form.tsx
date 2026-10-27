@@ -802,6 +802,7 @@ const ActiveStep2Form = ({ submit }: Step2FormProps) => {
 export const Step2Form = ({ submit }: Step2FormProps) => {
   const active = useAtomValue(ActiveFormAtom);
   const [open, setOpen] = useAtom(Form2ROOpenAtom);
+  const value = useAtomValue(Form2Atom);
   const is_active = active == 2;
   return (
     <StepWrapper>
@@ -811,7 +812,8 @@ export const Step2Form = ({ submit }: Step2FormProps) => {
         locked={active == 1}
         title={"평가 항목"}
       >
-        {is_active ? null :
+        {is_active || !value ?
+          null :
           <div className="flex items-center justify-between">
             <AbstractForm2 />
             <button type="button" className={open ? 'rotate-180' : 'rotate-0'} onClick={() => { setOpen(o => !o) }}>

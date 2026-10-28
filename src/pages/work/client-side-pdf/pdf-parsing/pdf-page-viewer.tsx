@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { PDFDocumentProxy, RenderTask } from "pdfjs-dist";
 import { FiCheck, FiChevronLeft, FiChevronRight, FiCopy } from "react-icons/fi";
-import { button, panel } from "./ui";
+import { button, panel } from "../ui";
 
 type Props = {
   document: PDFDocumentProxy;
@@ -25,8 +25,8 @@ export function PDFPageViewer({ document, pageNumber, extractionEnabled, onPageC
   const [copy, setCopy] = useState({ page: 0, message: "" });
   const current =
     view?.document === document &&
-    view.page === pageNumber &&
-    view.extractionEnabled === extractionEnabled
+      view.page === pageNumber &&
+      view.extractionEnabled === extractionEnabled
       ? view
       : null;
 
@@ -177,8 +177,8 @@ export function PDFPageViewer({ document, pageNumber, extractionEnabled, onPageC
                 ? "텍스트 추출 버튼을 누르면 이 페이지의 텍스트가 표시됩니다."
                 : current
                   ? current.error ||
-                    current.text ||
-                    "추출할 수 있는 텍스트가 없습니다. 이미지로 된 PDF에는 OCR이 필요합니다."
+                  current.text ||
+                  "추출할 수 있는 텍스트가 없습니다. 이미지로 된 PDF에는 OCR이 필요합니다."
                   : "텍스트 추출 중…"}
             </pre>
           </div>

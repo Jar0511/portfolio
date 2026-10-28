@@ -4,7 +4,7 @@ import type { PDFDocumentProxy } from "pdfjs-dist";
 import workerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 import { FiFileText, FiLoader, FiTrash2, FiUpload } from "react-icons/fi";
 import { PDFPageViewer } from "./pdf-page-viewer";
-import { button, formatBytes, panel } from "./ui";
+import { button, formatBytes, panel } from "../ui";
 
 GlobalWorkerOptions.workerSrc = workerUrl;
 

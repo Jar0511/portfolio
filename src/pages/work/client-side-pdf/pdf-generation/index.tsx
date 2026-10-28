@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { FiDownload, FiFileText } from "react-icons/fi";
 import { reports, runBenchmark } from "./benchmark";
 import type { BenchmarkOptions, BenchmarkResult } from "./benchmark";
-import { button, formatBytes, panel, select } from "./ui";
+import { button, formatBytes, panel, select } from "../ui";
 
 export function PDFGeneration() {
   const [options, setOptions] = useState<BenchmarkOptions>({

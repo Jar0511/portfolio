@@ -1,0 +1,71 @@
+.layout-workspace {
+  --room-surface: #fafbf9;
+  --room-panel: #fff;
+  --room-line: #d6dcd6;
+  --room-muted: #647267;
+  --room-accent: #245d48;
+}
+.dark .layout-workspace {
+  --room-surface: #151c18;
+  --room-panel: #1b241e;
+  --room-line: #39463d;
+  --room-muted: #a4b4a8;
+  --room-accent: #9cd7b8;
+}
+
+/* Size containment and container-dependent labels remain in CSS. */
+.camera-wall {
+  container-type: size;
+  container-name: camera-wall;
+}
+@container camera-wall (max-width: 320px) {
+  .camera-simulation {
+    display: none;
+  }
+  .camera-feedback {
+    bottom: 5px;
+    font-size: 10px;
+  }
+  .camera-id {
+    font-size: 9px;
+    left: 5px;
+    top: 4px;
+  }
+}
+@container camera-wall (max-height: 140px) {
+  .camera-simulation,
+  .camera-crosshair {
+    display: none;
+  }
+  .camera-feedback {
+    bottom: 3px;
+  }
+}
+
+.is-recording .record-dot {
+  animation: recording-pulse 1.25s ease-in-out infinite;
+}
+@keyframes recording-pulse {
+  50% {
+    opacity: 0.35;
+    box-shadow: 0 0 0 4px #d2463f20;
+  }
+}
+
+/* Third-party RGL state and resize handles. */
+.layout-workspace .react-grid-placeholder {
+  background: var(--room-accent);
+  opacity: 0.12;
+  border-radius: 10px;
+}
+.layout-workspace .react-resizable-handle::after {
+  border-color: var(--room-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-recording .record-dot {
+    animation: none;
+  }
+  .layout-workspace .react-grid-item {
+    transition: none;
+  }
+}

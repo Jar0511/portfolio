@@ -107,3 +107,27 @@ test("layout commits affect one breakpoint and no-op callbacks do not add histor
   state = editorReducer(state, { type: "save" });
   assert.equal(editorReducer(state, { type: "layout", cols: 8, layout }), state);
 });
+
+test("edits at different breakpoints undo and redo without overwriting another layout", () => {
+  let state = begin();
+  const original = state.present;
+  for (const cols of [8, 6, 4]) {
+    state = editorReducer(state, {
+      type: "layout",
+      cols,
+      layout: state.present.layouts[cols].map((item) =>
+        item.i === "cameras" ? { ...item, h: item.h + cols } : item,
+      ),
+    });
+  }
+  const changed = state.present;
+  assert.equal(state.past.length, 3);
+  state = editorReducer(state, { type: "undo" });
+  assert.deepEqual(state.present.layouts[4], original.layouts[4]);
+  assert.deepEqual(state.present.layouts[6], changed.layouts[6]);
+  assert.deepEqual(state.present.layouts[8], changed.layouts[8]);
+  state = editorReducer(state, { type: "redo" });
+  assert.deepEqual(state.present, changed);
+  state = editorReducer(state, { type: "cancel" });
+  assert.deepEqual(state.present, original);
+});

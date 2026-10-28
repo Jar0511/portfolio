@@ -14,8 +14,11 @@
   },
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^4.0.0",
+    "@react-pdf/renderer": "^4.9.0",
     "jotai": "^3.0.1",
+    "jszip": "^3.10.2",
     "motion": "^13.1.1",
+    "pdfjs-dist": "^6.4.299",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-grid-layout": "^2.3.0",
@@ -39,6 +42,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.65.0",
-    "vite": "^8.2.0"
+    "vite": "^8.2.0",
+    "vite-plugin-static-copy": "^4.1.1"
   }
 }
